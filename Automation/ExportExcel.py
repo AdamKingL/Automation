@@ -58,13 +58,13 @@ class Write_Excel():
             i += 1
         print(" 文件【{0}】表【{1}】第【{2}】行追加数据{3}".format(self.name, now_time, rows_old, values))
         # 定义标题行信息
-        title_row = ["ID", "title", "method", "URL", "payload", "result", "time/s"]
+        title_row = ["电子流类型", "姓名", "工号", "公出地点", "开始日期", "结束日期", "公出时长","申请时间","公出说明","流水号"]
         for n in range(0, len(title_row)):
             new_worksheet.write(0, n, title_row[n], self.set_style('Times New Roman', 220, True))
         new_workbook.save(self.filename)
 
-if __name__ == "__main__":
-    values_1 = [1, "百度搜索", "百度-百度搜索", "https://www.baidu.com", "Selenium", "pass", "4"]
-    values_2 = [2, "百度搜索", "百度-百度搜索", "https://www.baidu.com", "Python", "error", "5"]
-    Write_Excel().add_to_excel(values=values_1)
-    Write_Excel().add_to_excel(values=values_2)
+##if __name__ == "__main__":
+##    values_1 = [1, "百度搜索", "百度-百度搜索", "https://www.baidu.com", "Selenium", "pass", "4"]
+##    values_2 = [2, "百度搜索", "百度-百度搜索", "https://www.baidu.com", "Python", "error", "5"]
+##    Write_Excel().add_to_excel(values=values_1)
+##    Write_Excel().add_to_excel(values=values_2)

@@ -15,7 +15,8 @@ browser.maximize_window()  #将浏览器最大化显示
 time.sleep(2)
 
 ##用户登陆
-
+##105771 likunqi19940815
+##141990 Sn19900313
 browser.find_element_by_name("userName").send_keys("141990")
 browser.find_element_by_xpath("//input[@id='password']").click()
 browser.find_element_by_xpath("//input[@id='password']").send_keys("Sn19900313")
@@ -29,27 +30,62 @@ windows = browser.window_handles
 browser.switch_to.window(windows[-1])
 browser.find_element_by_xpath("//a[@href='http://ics.chinasoftinc.com:8010/sso/toLoginYellow']").click() #点击新考勤系统
 
-time.sleep(3)
+time.sleep(10)
+##WebDriverWait(browser,30).until(EC.presence_of_all_elements_located((By.XPATH,"//div[@class='menulist_item']/div[contains(text(),'审批')]")))
 
 windows = browser.window_handles
 browser.switch_to.window(windows[-1])
 browser.find_element_by_xpath("//div[@class='menulist_item']/div[contains(text(),'审批')]").click() #点击审批
 
 ##读取数据到excel
-##Result = WebDriverWait(browser,10).until(EC.visibility_of_any_elements_located((By.XPATH,"//div[text()='公出申请']")))
-time.sleep(3)
-Result = browser.find_elements_by_xpath("//div[text()='公出申请1']")
+time.sleep(5)
+Result = browser.find_elements_by_xpath("//div[contains(text(),'暂无审批数据')]")
 print (Result)
-if Result != [] :
-    values_1 = [1, "百度搜索", "百度-百度搜索", "https://www.baidu.com", "Selenium", "pass", "4"]
-    values_2 = [2, "百度搜索", "百度-百度搜索", "https://www.baidu.com", "Python", "error", "5"]
-    ExportExcel.Write_Excel().add_to_excel(values=values_1)
-    ExportExcel.Write_Excel().add_to_excel(values=values_2)
+
+i = 1
+j = 1
+if Result == [] :
+    processType = browser.find_element_by_xpath("//li[position()="+str(i)+"]/.//div[@class='info']/div[position()=1]").text
+    print (processType)
+
+    while j == 1 :
+    ##公出请求
+        if processType == '公出申请' :
+            processData = []
+            processData.append(processType)  ##请求类型
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=1]/div[position()=1]/div/div").text)  ##姓名
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=1]/div[position()=2]/div/div").text)  ##工号
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=2]/div[position()=1]/div/div").text)  ##公出时间
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=2]/div[position()=2]/div/div").text)  ##开始日期
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=3]/div[position()=1]/div/div").text)  ##结束日期
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=3]/div[position()=2]/div/div").text)  ##公出时长
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=4]/div[position()=1]/div/div").text)  ##申请时间
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=4]/div[position()=2]/div/div").text)  ##公出说明
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=5]/div[position()=1]/div/div").text)  ##流水号
+            print (processData)      
+            ExportExcel.Write_Excel().add_to_excel(values=processData)
+
+        elif processType == '公出' :
+            processData = []
+
+        i = i+1
+        ele = browser.find_elements_by_xpath("//li[position()="+str(i)+"]/.//div[@class='info']/div[position()=1]")
+        print (ele)
+        if ele != [] :
+            browser.find_element_by_xpath("//li[position()="+str(i)+"]/.//div[@class='info']/div[position()=1]").click()
+            processType = browser.find_element_by_xpath("//li[position()="+str(i)+"]/.//div[@class='info']/div[position()=1]").text
+            j = 1
+            print (processType)
+            print (j)
+        else :
+            j = 0
+            print (j)
+
+        
 
 
 
 
 ##用户登出
 ##browser.find_element_by_xpath("//a[@href='/logout']").click()
-##browser.quit()
-
+browser.quit()
