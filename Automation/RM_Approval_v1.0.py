@@ -45,12 +45,6 @@ print("有审批数据")
 i = 1
 j = 1
 num = 0
-
-##测试专用
-##browser.find_element_by_xpath("//input[@id='serTextVal']").send_keys("李一航")
-##browser.find_element_by_xpath("//div[@class='ser_text_img']").click()
-
-
 if Result == [] :
     WebDriverWait(browser,30).until(EC.visibility_of_element_located((By.XPATH,"//li[position()="+str(i)+"]/.//div[@class='info']/div[position()=1]")))
     processType = browser.find_element_by_xpath("//li[position()="+str(i)+"]/.//div[@class='info']/div[position()=1]").text
@@ -82,12 +76,11 @@ if Result == [] :
         if processType == "公出申请" or processType == "年假申请" or processType == "事假申请" or processType == "病假申请" or processType == "补休申请":
             ExportExcel.Write_Excel().add_to_excel(values=processData)
         else:
-##            i = i+1
+            i = i+1
             print ("不写入excel")
             
         ##循环控制
         num = num+1
-        i = i+1
         time.sleep(3)
         ele = browser.find_elements_by_xpath("//li[position()="+str(i)+"]/.//div[@class='info']/div[position()=1]")
         if ele != [] :

@@ -4,20 +4,21 @@ import xlrd
 import xlwt
 import os
 import time
+import GlobalParam
 from xlutils.copy import copy
 
-
+RM_Name = GlobalParam.GL_RM_Name
 root_dir = os.path.abspath('.')
 excel_path = root_dir + '\\output'   # 写入的excel文件路径
 print (excel_path)             
-now_time = strftime("%Y-%m-%d")      # 获取时间戳为excel文件名和表名
+now_time = strftime("%Y-%m")      # 获取时间戳为excel文件名和表名
  
  
 # 创建excel追加数据到表中
 class Write_Excel():
     def __init__(self):
         self.path = excel_path
-        self.name = now_time + ".xls"
+        self.name = now_time + "-" + RM_Name + ".xls"
         self.filename = join(self.path, self.name)
  
     # 设置表格样式
@@ -62,9 +63,3 @@ class Write_Excel():
         for n in range(0, len(title_row)):
             new_worksheet.write(0, n, title_row[n], self.set_style('Times New Roman', 220, True))
         new_workbook.save(self.filename)
-
-##if __name__ == "__main__":
-##    values_1 = [1, "百度搜索", "百度-百度搜索", "https://www.baidu.com", "Selenium", "pass", "4"]
-##    values_2 = [2, "百度搜索", "百度-百度搜索", "https://www.baidu.com", "Python", "error", "5"]
-##    Write_Excel().add_to_excel(values=values_1)
-##    Write_Excel().add_to_excel(values=values_2)
