@@ -23,7 +23,7 @@ class Compare():
             else:
                 flag = "FALSE"
         else:
-            if str(Duration)[1:3] == "小时" or str(Duration)[2:4] == "分钟":
+            if str(Duration)[1:3] == "小时" or str(Duration)[3:5] == "小时" or str(Duration)[2:4] == "分钟":
                 flag = "TRUE"
             else:
                 flag = "FALSE"
