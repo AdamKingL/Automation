@@ -135,15 +135,16 @@ class Process():
         WebDriverWait(browser,30).until(EC.visibility_of_element_located((By.XPATH,"//div[contains(@class,'btn submit') and text()='确认']")))
         browser.find_element_by_xpath("//div[contains(@class,'btn submit') and text()='确认']").click()             #点击 确认
         browser.switch_to.default_content();                                                                        #切换到默认html
-        browser.find_element_by_xpath("//div[contains(@class,'btn cancel') and text()='取消']").click()             #点击 取消
-##        WebDriverWait(browser,30).until(EC.visibility_of_element_located((By.XPATH,"//div[contains(@class,'btn submit') and text()='确认']")))
-##        browser.find_element_by_xpath("//div[contains(@class,'btn submit') and text()='确认']").click()             #点击 确认
+##        browser.find_element_by_xpath("//div[contains(@class,'btn cancel') and text()='取消']").click()             #点击 取消
+        time.sleep(2)
+        WebDriverWait(browser,30).until(EC.visibility_of_element_located((By.XPATH,"//div[contains(@class,'btn submit') and text()='确认']")))
+        browser.find_element_by_xpath("//div[contains(@class,'btn submit') and text()='确认']").click()             #点击 确认
         print("To DM")
         time.sleep(5)
             
     #直接通过
     def ApproveDirectly(self):
         WebDriverWait(browser,30).until(EC.visibility_of_element_located((By.XPATH,"//input[contains(@class,'pms_pass')]")))
-##        browser.find_element_by_xpath("//input[contains(@class,'pms_pass')]").click()                               #点击 通过
+        browser.find_element_by_xpath("//input[contains(@class,'pms_pass')]").click()                               #点击 通过
         print("Approoved")
         time.sleep(5)
