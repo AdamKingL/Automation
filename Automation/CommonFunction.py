@@ -47,6 +47,8 @@ class Data():
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=4]/div[position()=2]/div/div").text)  ##公出说明
             processData.append("")
             processData.append("")
+            processData.append("")
+            processData.append("")
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=5]/div[position()=1]/div/div").text)  ##流水号
 
         elif dataType == "年假申请" :
@@ -62,6 +64,8 @@ class Data():
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=2]/div[position()=1]/div/div").text)  ##请假原因
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=4]/div[position()=2]/div/div").text)  ##扣减顺序
             processData.append("")
+            processData.append("")
+            processData.append("")
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=5]/div[position()=1]/div/div").text)  ##流水号
             
         elif dataType == "事假申请" :
@@ -75,6 +79,8 @@ class Data():
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=3]/div[position()=2]/div/div").text)  ##请假时长
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=4]/div[position()=1]/div/div").text)  ##申请时间
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=2]/div[position()=1]/div/div").text)  ##请假原因
+            processData.append("")
+            processData.append("")
             processData.append("")
             processData.append("")
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=4]/div[position()=2]/div/div").text)  ##流水号
@@ -92,6 +98,8 @@ class Data():
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=2]/div[position()=1]/div/div").text)  ##请假原因
             processData.append("")
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=4]/div[position()=2]/div/div").text)  ##累计已休
+            processData.append("")
+            processData.append("")
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=5]/div[position()=1]/div/div").text)  ##流水号
 
         elif dataType == "补休申请" :
@@ -107,7 +115,26 @@ class Data():
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=2]/div[position()=1]/div/div").text)  ##请假原因
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=4]/div[position()=2]/div/div").text)  ##扣减顺序
             processData.append("")
+            processData.append("")
+            processData.append("")
             processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=5]/div[position()=1]/div/div").text)  ##流水号
+
+        elif dataType == "补签申请" :
+            processData = []
+            processData.append(dataType)  ##请求类型
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=1]/div[position()=1]/div/div").text)  ##姓名
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=1]/div[position()=2]/div/div").text)  ##工号
+            processData.append("")
+            processData.append("")
+            processData.append("")
+            processData.append("")
+            processData.append("")
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=2]/div[position()=1]/div/div").text)  ##补签原因
+            processData.append("")
+            processData.append("")
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=2]/div[position()=2]/div/div").text)  ##补签时间
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=3]/div[position()=1]/div/div").text)  ##补签类型
+            processData.append(browser.find_element_by_xpath("//div[@class='module_item' and position()=1]/.//div[@class='_frm_item' and position()=3]/div[position()=2]/div/div").text)  ##流水号
             
         else:
             processData = []
@@ -147,4 +174,11 @@ class Process():
         WebDriverWait(browser,30).until(EC.visibility_of_element_located((By.XPATH,"//input[contains(@class,'pms_pass')]")))
         browser.find_element_by_xpath("//input[contains(@class,'pms_pass')]").click()                               #点击 通过
         print("Approoved")
+        time.sleep(5)
+
+    #驳回
+    def Reject(self):
+        WebDriverWait(browser,30).until(EC.visibility_of_element_located((By.XPATH,"//input[contains(@class,'pms_reject')]")))
+        browser.find_element_by_xpath("//input[contains(@class,'pms_reject')]").click()                               #点击 驳回
+        print("Rejected")
         time.sleep(5)

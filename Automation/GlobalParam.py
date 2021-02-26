@@ -5,11 +5,11 @@ GL_RM_LoginID = "141990"
 GL_RM_Password = "Sn19900313"
 GL_DM_ApproverID = "0000016073"
 
-GL_DM_LoginID = ""
-GL_DM_Password = ""
+GL_DM_LoginID = "16073"
+GL_DM_Password = "Jodie0418"
 GL_GM_ApproverID = ""
 
-GL_Name = "苏娜"
+GL_Name = "谢成志"
 
 #有界面浏览器模式
 GL_browser = webdriver.Chrome()

@@ -11,6 +11,7 @@ import GlobalParam
 
 DM_LoginID = GlobalParam.GL_DM_LoginID
 DM_Password = GlobalParam.GL_DM_Password
+DM_ApproverID = GlobalParam.GL_DM_ApproverID
 GM_ApproverID = GlobalParam.GL_GM_ApproverID
 
 browser = GlobalParam.GL_browser
@@ -59,18 +60,31 @@ if Result == [] :
             flag_isLower3Days = CommonFunction.Compare().is_Lower3Days(Duration=requestDuration)
             print (flag_isLower3Days)
             if flag_isLower3Days == "TRUE":
-                CommonFunction.Process().ApproveDirectly()
+                LastApprover = browser.find_elements_by_xpath("//div[@class='line_item_title' and text()='上级审批人']")
+                if LastApprover != []:
+                    CommonFunction.Process().ApproveDirectly()
+                    processData.append("通过")  # 审批状态
+                else:
+                    CommonFunction.Process().ApproveToNextLevel(NextLevelApproverID=DM_ApproverID)
+                    processData.append("通过 转交DM")  # 审批状态
             else:
-                CommonFunction.Process().ApproveToNextLevel(NextLevelApproverID=GM_ApproverID)
+                CommonFunction.Process().Reject()
+                processData.append("驳回")  # 审批状态
+
+        elif processType == "补签申请" :
+            CommonFunction.Process().ApproveDirectly()
+            processData.append("通过")  # 审批状态
+            print ("补签 DM直接审批")
             
-        elif processType == "事假申请" or processType == "病假申请" or processType == "补休申请":
-            CommonFunction.Process().ApproveToNextLevel(NextLevelApproverID=DM_ApproverID)
+        elif processType in ["事假申请","病假申请","补休申请"]:
+            CommonFunction.Process().ApproveToNextLevel(NextLevelApproverID=GM_ApproverID)
+            processData.append("通过 下一级GM审批")  # 审批状态
             print ("事假/病假/补休 需GM审批")
 
-                
+              
             
         # 写入excel
-        if processType == "公出申请" or processType == "事假申请" or processType == "病假申请" or processType == "补休申请":
+        if processType in ["公出申请","事假申请","病假申请","补休申请","补签申请"]:
             ExportExcel.Write_Excel().add_to_excel(values=processData)
         else:
             i = i+1

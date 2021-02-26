@@ -56,24 +56,35 @@ if Result == [] :
         # RM 审批
         if processType == "公出申请" :
             CommonFunction.Process().ApproveToNextLevel(NextLevelApproverID=DM_ApproverID)
+            processData.append("通过 下一级DM审批")  # 审批状态
             print ("公出 需DM审批")
             
         elif processType == "年假申请" :
             CommonFunction.Process().ApproveDirectly()
+            processData.append("通过")  # 审批状态
             print ("年假 RM直接审批")
+
+        elif processType == "补签申请" :
+            CommonFunction.Process().ApproveDirectly()
+            processData.append("通过")  # 审批状态
+            print ("补签 RM直接审批")
             
-        elif processType == "事假申请" or processType == "病假申请" or processType == "补休申请":
+        elif processType in ["事假申请","病假申请","补休申请"]:
             requestDuration = processData[6]
             flag_isLower3Days = CommonFunction.Compare().is_Lower3Days(Duration=requestDuration)
             print (flag_isLower3Days)
             if flag_isLower3Days == "TRUE":
                 CommonFunction.Process().ApproveDirectly()
+                processData.append("通过")  # 审批状态
+                print ("RM直接审批")
             else:
                 CommonFunction.Process().ApproveToNextLevel(NextLevelApproverID=DM_ApproverID)
+                processData.append("通过 下一级DM审批")  # 审批状态
+                print ("需DM审批")
                 
             
         # 写入excel
-        if processType == "公出申请" or processType == "年假申请" or processType == "事假申请" or processType == "病假申请" or processType == "补休申请":
+        if processType in ["公出申请","年假申请","事假申请","病假申请","补休申请","补签申请"]:
             ExportExcel.Write_Excel().add_to_excel(values=processData)
         else:
             i = i+1

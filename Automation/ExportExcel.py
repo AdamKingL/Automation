@@ -59,7 +59,7 @@ class Write_Excel():
             i += 1
         print(" 文件【{0}】表【{1}】第【{2}】行追加数据{3}".format(self.name, now_time, rows_old, values))
         # 定义标题行信息
-        title_row = ["电子流类型", "姓名", "工号", "公出地点", "开始日期", "结束日期", "时长","申请时间","公出说明/请假原因","扣减顺序","累计已休","流水号"]
+        title_row = ["电子流类型", "姓名", "工号", "公出地点", "开始日期", "结束日期", "时长","申请时间","公出说明/请假原因/补签原因","扣减顺序","累计已休","补签时间","补签类型","流水号","审批状态"]
         for n in range(0, len(title_row)):
             new_worksheet.write(0, n, title_row[n], self.set_style('Times New Roman', 220, True))
         new_workbook.save(self.filename)
